@@ -30,6 +30,7 @@ public class ConfiguracoesDeSeguranca extends WebSecurityConfigurerAdapter {
     };
     private static final String[] POST_PUBLICOS = {
             "/usuario",
+            "/login"
     };
 
 
@@ -46,6 +47,10 @@ public class ConfiguracoesDeSeguranca extends WebSecurityConfigurerAdapter {
         http.addFilter(new FiltroDeAutenticacaoJWT(authenticationManager(), jwtComponente));
 
     }
+    @Bean
+    BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -59,8 +64,5 @@ public class ConfiguracoesDeSeguranca extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    @Bean
-    BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
 }

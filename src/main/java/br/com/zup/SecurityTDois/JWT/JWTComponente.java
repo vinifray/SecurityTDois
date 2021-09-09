@@ -17,7 +17,7 @@ public class JWTComponente {
 
         String token = Jwts.builder().setSubject(username)
                 .claim("idUsuario", idUsuario).setExpiration(vecimento)
-                .signWith(SignatureAlgorithm.ES512, chave.getBytes()).compact();
+                .signWith(SignatureAlgorithm.HS512, chave.getBytes()).compact();
 
         return token;
     }

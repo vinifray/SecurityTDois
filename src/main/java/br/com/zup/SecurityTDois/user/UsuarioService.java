@@ -11,7 +11,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Usuario cadastrarUsuario(Usuario usuario){
         String encode = bCryptPasswordEncoder.encode(usuario.getSenha());
