@@ -1,6 +1,7 @@
 package br.com.zup.SecurityTDois.security;
 
 import br.com.zup.SecurityTDois.JWT.FiltroDeAutenticacaoJWT;
+import br.com.zup.SecurityTDois.JWT.FiltroDeAutorizacaoJWT;
 import br.com.zup.SecurityTDois.JWT.JWTComponente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,6 +46,7 @@ public class ConfiguracoesDeSeguranca extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilter(new FiltroDeAutenticacaoJWT(authenticationManager(), jwtComponente));
+        http.addFilter(new FiltroDeAutorizacaoJWT(authenticationManager(), jwtComponente, userDetailsService));
 
     }
     @Bean

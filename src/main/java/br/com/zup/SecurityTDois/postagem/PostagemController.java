@@ -14,9 +14,8 @@ public class PostagemController {
     @Autowired
     private PostagemService postagemService;
 
-    @PostMapping("/{idUsaurio}")
-    public Postagem cadastrarPostagem(@RequestBody Postagem postagem, @PathVariable int idUsuario,
-                                      @AuthenticationPrincipal UsuarioLogin usuarioLogin){
-        return postagemService.cadastrarPostagem(usuarioLogin.getId(), postagem);
+    @PostMapping("/{idUsuario}")
+    public Postagem cadastrarPostagem(@RequestBody Postagem postagem, @PathVariable int idUsuario){
+        return postagemService.cadastrarPostagem(idUsuario, postagem);
     }
 }

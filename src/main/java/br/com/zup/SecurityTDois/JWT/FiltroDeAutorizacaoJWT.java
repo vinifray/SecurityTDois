@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class FiltroDeAutenticacao extends BasicAuthenticationFilter {
+public class FiltroDeAutorizacaoJWT extends BasicAuthenticationFilter {
     private JWTComponente jwtComponente;
     private UserDetailsService userDetailsService;
 
-    public FiltroDeAutenticacao(AuthenticationManager authenticationManager,
-                                JWTComponente jwtComponente, UserDetailsService userDetailsService) {
+    public FiltroDeAutorizacaoJWT(AuthenticationManager authenticationManager,
+                                  JWTComponente jwtComponente, UserDetailsService userDetailsService) {
         super(authenticationManager);
         this.jwtComponente = jwtComponente;
         this.userDetailsService = userDetailsService;
