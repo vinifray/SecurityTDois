@@ -5,9 +5,11 @@ import br.com.zup.SecurityTDois.JWT.UsuarioLogin;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -38,4 +40,13 @@ public class PostagemController {
         return postagemService.cadastrarPostagem(email, postagem);
     }
 
+    @DeleteMapping("/{idPostagem}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarPostagem(@PathVariable int idPostagem, Authentication authentication){
+        try{
+            postagemService.apagarMensagem(idPostagem, authentication.getName());
+        }catch (RuntimeException exception){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        }
+    }
 }

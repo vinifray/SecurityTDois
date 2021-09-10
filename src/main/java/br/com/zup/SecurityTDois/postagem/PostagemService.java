@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostagemService {
@@ -35,5 +36,23 @@ public class PostagemService {
 
     public List<Postagem> pesquisarPostagemPeloUsuarioId(int idUsuario){
         return postagemRepository.findAllByUsuarioId(idUsuario);
+    }
+
+    public void apagarMensagem(int idMensagem, String emailAuthor){
+        if(mensagemDoAutor(idMensagem, emailAuthor)){
+            postagemRepository.deleteById(idMensagem);
+        }
+        throw new RuntimeException("O Author pode apagar apenas as proprias mensagens");
+    }
+
+    public boolean mensagemDoAutor(int idMensagem, String emailAuthor){
+        Optional<Postagem> postagemOptional = postagemRepository.findById(idMensagem);
+
+        postagemOptional.orElseThrow(() -> new RuntimeException("Postagem não encontrada"));
+
+        if(postagemOptional.get().getUsuario().getEmail() != emailAuthor){
+            return false;
+        }
+        return true;
     }
 }
