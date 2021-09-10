@@ -38,7 +38,7 @@ public class PerfilController {
         List<Postagem> postagens = postagemRepository.findAllByUsuarioEmail(authentication.getName());
 
         List<PostagemDTO> postagemDTOS = postagens.stream()
-                .map(postagem -> conversor.convertValue(postagem, PostagemDTO.class) ).collect(Collectors.toList());
+                .map(postagem -> conversor.convertValue(postagem, PostagemDTO.class)).collect(Collectors.toList());
         UsuarioDTO usuarioDTO = conversor.convertValue(usuario, UsuarioDTO.class);
         usuarioDTO.setPostagens(postagemDTOS);
         return usuarioDTO;

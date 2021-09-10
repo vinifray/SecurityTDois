@@ -1,6 +1,7 @@
 package br.com.zup.SecurityTDois.JWT;
 
 import br.com.zup.SecurityTDois.JWT.dtos.LoginDTO;
+import br.com.zup.SecurityTDois.exceptions.AccessoNegadoException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,7 +39,7 @@ public class FiltroDeAutenticacaoJWT extends UsernamePasswordAuthenticationFilte
             Authentication auth = authenticationManager.authenticate(authToken);
             return auth;
         }catch (IOException exception){
-            throw new RuntimeException(exception.getMessage());
+            throw new AccessoNegadoException();
         }
     }
 

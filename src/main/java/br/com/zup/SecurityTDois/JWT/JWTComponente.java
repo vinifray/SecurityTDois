@@ -1,5 +1,6 @@
 package br.com.zup.SecurityTDois.JWT;
 
+import br.com.zup.SecurityTDois.exceptions.TokenNotValidException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -31,7 +32,7 @@ public class JWTComponente {
             Claims claims = Jwts.parser().setSigningKey(chave.getBytes()).parseClaimsJws(token).getBody();
             return claims;
         }catch (Exception exception){
-            throw new RuntimeException(exception.getMessage());
+            throw new TokenNotValidException();
         }
     }
 
@@ -47,7 +48,7 @@ public class JWTComponente {
             }else{
                 return false;
             }
-        }catch (RuntimeException exception){
+        }catch (TokenNotValidException exception){
             return false;
         }
     }
