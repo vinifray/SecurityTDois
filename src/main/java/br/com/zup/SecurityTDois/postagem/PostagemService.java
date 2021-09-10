@@ -24,6 +24,15 @@ public class PostagemService {
         return postagemRepository.save(postagem);
     }
 
+    public Postagem cadastrarPostagem(String email, Postagem postagem){
+        Usuario usuario = usuarioService.buscarUsuarioPeloEmail(email);
+
+        postagem.setUsuario(usuario);
+        postagem.setData(LocalDate.now());
+
+        return postagemRepository.save(postagem);
+    }
+
     public List<Postagem> pesquisarPostagemPeloUsuarioId(int idUsuario){
         return postagemRepository.findAllByUsuarioId(idUsuario);
     }

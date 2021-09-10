@@ -27,4 +27,13 @@ public class UsuarioService {
         }
         return usuarioOptional.get();
     }
+
+    public Usuario buscarUsuarioPeloEmail(String email){
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if (usuarioOptional.isEmpty()){
+            throw new RuntimeException("Usuario não encontrado");
+        }
+        return usuarioOptional.get();
+    }
 }
