@@ -39,10 +39,10 @@ public class PostagemService {
     }
 
     public void apagarMensagem(int idMensagem, String emailAuthor){
-        if(mensagemDoAutor(idMensagem, emailAuthor)){
-            postagemRepository.deleteById(idMensagem);
+        if(!mensagemDoAutor(idMensagem, emailAuthor)){
+            throw new RuntimeException("O Author pode apagar apenas as proprias mensagens");
         }
-        throw new RuntimeException("O Author pode apagar apenas as proprias mensagens");
+        postagemRepository.deleteById(idMensagem);
     }
 
     public boolean mensagemDoAutor(int idMensagem, String emailAuthor){
@@ -50,7 +50,7 @@ public class PostagemService {
 
         postagemOptional.orElseThrow(() -> new RuntimeException("Postagem não encontrada"));
 
-        if(postagemOptional.get().getUsuario().getEmail() != emailAuthor){
+        if(!postagemOptional.get().getUsuario().getEmail().equals(emailAuthor)){
             return false;
         }
         return true;
